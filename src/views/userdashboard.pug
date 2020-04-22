@@ -1,0 +1,43 @@
+//- page-a.pug
+extends layout.pug
+
+
+block content
+  div.container
+    div.row.text-center
+      div.col-12.mt-5
+        h5 Dashboard
+        h3 Welcome 
+          b #{user.name}
+        img(src=`/images/users/${user.userPhoto}`, alt="" class="img-fluid rounded-circle" height="100px" width="120px")
+        div
+          a.btn.btn-primary.mb-4.mt-4(href='/login/logout') logout
+
+        include alerts
+
+        div.row
+          - var formError={};
+            if errors 
+              each error,i in errors
+                - formError[error.param]=error.msg
+         
+         
+          div.col-6.text-left
+            form(action='/user/dashboard/update' method="POST")
+              .form-group
+                  label(for='exampleInputEmail1') Name
+                  input#exampleInputEmail1.form-control(type='text' name="name" value=user.name)
+                  if formError.name
+                    div.alert.alert-danger #{formError.name}
+              .form-group
+                label(for='exampleInputPassword1') New Password
+                input#exampleInputPassword1.form-control(type='password' name="password")
+                if formError.password
+                    div.alert.alert-danger #{formError.password}
+              button.btn.btn-primary(type='submit') Submit
+          
+
+
+    
+
+    

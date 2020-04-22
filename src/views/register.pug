@@ -1,0 +1,43 @@
+//- page-a.pug
+extends layout.pug
+
+
+block content
+  div.container
+    div.row.text-center
+      div.col-12.mt-5
+        h5 Registration Form
+        - var formError={};
+        if errors 
+              each error,i in errors
+                - formError[error.param]=error.msg
+        //- flash messages
+        include alerts
+        
+        form(action='/' method="POST" enctype="multipart/form-data")
+          div.form-group
+            label Name
+            input(type="text" name="name" value= data && typeof data.name!='undefined'? data.name:"")
+            if formError.name
+                div.alert.alert-danger #{formError.name}
+          div.form-group
+            label Email
+            input(type="email" name="email" value= data && typeof data.email!='undefined'? data.email:"")
+            if formError.email
+              div.alert.alert-danger #{formError.email}
+          div.form-group
+            label Profile
+            input(type="file" name="image")
+            if formError.image
+              div.alert.alert-danger #{formError.image}
+          div.form-group
+            label Password
+            input(type="password" name="password" value= data && typeof data.password!='undefined'? data.password:"")
+            if formError.password
+              div.alert.alert-danger #{formError.password}
+          button.btn.btn-primary(type="submit") Submit
+          div.mt-4
+             div already account? 
+                a.btn.btn-primary(href="/login") Login Here
+
+    

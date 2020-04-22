@@ -1,0 +1,37 @@
+//- page-a.pug
+extends layout.pug
+
+
+block content
+  div.container
+    div.row.text-center
+      div.col-12.mt-5
+        h5 Login
+        //- if errors 
+              each error,i in errors
+                p.alert.alert-danger #{error.msg}
+        - var formError={};
+        if errors 
+              each error,i in errors
+                - formError[error.param]=error.msg
+
+        include alerts
+      
+        form(action='/login' method="POST")
+         
+          div.form-group
+            label Email
+            input(type="email" name="email" )
+            if formError.email
+              div.alert.alert-danger #{formError.email}
+          div.form-group
+            label Password
+            input(type="password" name="password")
+            if formError.password
+              div.alert.alert-danger #{formError.password}
+          button.btn.btn-primary(type="submit") Submit
+          div.mt-4 
+            a.btn.btn-primary(href="/forgotPassword") Forgot Password
+
+
+    

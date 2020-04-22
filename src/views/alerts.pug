@@ -1,0 +1,7 @@
+if flashMessage && flashMessage.success
+    div.alert.alert-success
+        strong #{flashMessage.success}
+
+if flashMessage && flashMessage.error
+    div.alert.alert-danger
+        strong #{flashMessage.error}
